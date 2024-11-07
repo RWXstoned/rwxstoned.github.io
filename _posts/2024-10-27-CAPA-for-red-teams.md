@@ -63,7 +63,7 @@ The `parse PE header` seems to be a false-positive which applies to pretty much 
 
 ## Summary
 
-We have seen how Blue Team tools can be leveraged and perform simple checks on offensive tools. Windefender and YARA rules are usually taken as references for these types of checks, but CAPA gives an alternative view on your executables. This can help avoid silly detections early on during an engagement and should be added to the list of OPSEC checks your implement on your tools.
+We have seen how Blue Team tools can be leveraged and perform simple checks on offensive tools. WinDefender and YARA rules are usually taken as references for these types of checks, but CAPA gives an alternative view on your executables. This can help avoid silly detections early on during an engagement and should be added to the list of OPSEC checks your implement on your toolset.
 
 
 

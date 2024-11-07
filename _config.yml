@@ -21,9 +21,6 @@ author: rwxstoned
 
 navbar-links:
   About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
   Author's home: "https://rwxstoned.github.io"
 
 ################
@@ -78,9 +75,6 @@ social-network-links:
 #  itchio: yourname
 #  untappd: yourname
 
-# If you want your website to generate an RSS feed, provide a description
-# The URL for the feed will be https://<your_website>/feed.xml
-rss-description: This website is a virtual proof that I'm awesome
 
 ###########################
 # --- General options --- #
@@ -89,8 +83,8 @@ rss-description: This website is a virtual proof that I'm awesome
 # Select which social network share links to show in posts
 share-links-active:
   twitter: true
-  facebook: true
-  linkedin: true
+  facebook: false
+  linkedin: false
   vk: false
 
 
@@ -98,7 +92,7 @@ share-links-active:
 title-on-all-pages: true
 
 # Excerpt word length - Truncate the excerpt of each post on the feed page to the specified number of words
-excerpt_length: 50
+excerpt_length: 80
 
 # Whether or not to show an excerpt for every blog post in the feed page
 feed_show_excerpt: true
@@ -126,12 +120,12 @@ keywords: "malware,red,team,security,offsec,dll,windows,c2,hacking"
 
 # Personalize the colours in your website. Colour values can be any valid CSS colour
 
-page-col: "#FFFFFF"
-text-col: "#404040"
+page-col: "#c8e1fd"
+text-col: "#4d4545"
 link-col: "#008AFF"
-hover-col: "#0085A1"
+hover-col: "#3000d8"
 navbar-col: "#EAEAEA"
-navbar-text-col: "#404040"
+navbar-text-col: "#FE0101"
 navbar-border-col: "#DDDDDD"
 footer-col: "#EAEAEA"
 footer-text-col: "#777777"
@@ -141,9 +135,9 @@ footer-hover-col: "#0085A1"
 # Alternatively, the navbar, footer, and page background can be set to an image
 # instead of colour
 
-#navbar-img: "/assets/img/bgimage.png"
-#footer-img: "/assets/img/bgimage.png"
-#page-img: "/assets/img/bgimage.png"
+navbar-img: "/assets/img/bal1.png"
+footer-img: "/assets/img/bal1.png"
+#page-img: "/assets/img/bal3.jpg"
 
 # Suggest a colour for mobile browsers to use as the browser's theme. This is only supported by a few mobile browsers.
 #mobile-theme-col: "#0085A1"
