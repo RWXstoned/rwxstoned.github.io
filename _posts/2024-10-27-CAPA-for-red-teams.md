@@ -1,5 +1,5 @@
 ---
-title: MANDIANT CAPA for Red teamers
+title: MANDIANT CAPA for Red Teams
 subtitle: How to leverage Blue Team tools to make your malware stealthier
 thumbnail-img: "https://rwxstoned.github.io/assets/img/1/capa.png"
 ---
