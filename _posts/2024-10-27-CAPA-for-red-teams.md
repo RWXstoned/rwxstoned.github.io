@@ -1,3 +1,8 @@
+---
+title: MANDIANT CAPA for Red teamers
+subtitle: How to leverage Blue Team tools to make your malware stealthier
+thumbnail-img: "https://rwxstoned.github.io/assets/img/1/capa.png"
+---
 
 If you have ever checked the "Behavior" section on VirusTotal's review of a sample, you have seen how it may flag suspicious activities performed by the executable you are analyzing. Irrespective of the number of detections that your sample gets (even if it gets no detection at all), this VirusTotal report may still indicate that it somehow recognizes it is doing weird stuff that you would ideally like to keep concealed...
 
@@ -13,11 +18,11 @@ Another IOC that pops up, but which I won't address below, is that it detected t
 
 ![](https://rwxstoned.github.io/assets/img/1/xor.png)
 
-Needless to say that if suspicious behaviors like those can be identified in the building blocks of your loaders, implants, etc..., then the chances of detections during an engagement in a monitored environment will be high. What checks are performed exactly and what can we do to avoid them ? This is were CAPA, from Mandiant, comes into play.
+All of these indicators will no doubt contribute to tilt the balance towards "suspicious" when an EDR reviews what your code is doing. And needless to say that if suspicious behaviors like those can be identified in the building blocks of your loaders, implants, etc..., then the chances of detections during an engagement in a monitored environment will be high. What checks are performed exactly and what can we do to avoid them ? This is were CAPA, from Mandiant, comes into play.
 
 ## Meet CAPA
 
-[CAPA](https://github.com/mandiant/capa) is a Mandiant tool primarily designed for malware analysts and which looks for suspicious code patterns. It is based on rules (that you can contribute to should you wish to), similar to YARA rules but for assembly bits and bobs rather than raw bytes. In our case we can leverage them to understand better how our code gets flagged.
+[CAPA](https://github.com/mandiant/capa) is a Mandiant tool primarily designed for malware analysts and which looks for suspicious code patterns in order to help get a quick intuition as to what an executable might be doing. It is based on rules (that you can contribute to, should you wish to), similar to YARA rules but for assembly bits and bobs rather than raw bytes. In our case we can leverage them to understand better how our code gets flagged.
 
 Running the tool directly against the executable will confirm what we saw in VirusTotal but more importantly the `-vv` option will display details about the rule and the offending code snippets.
 
@@ -29,11 +34,11 @@ Running the tool directly against the executable will confirm what we saw in Vir
 
 ![](https://rwxstoned.github.io/assets/img/1/Pasted image 20241010151207.png)
 
-Accessing those fields means those offsets are present in the assembly instructions as it adds them to registers.
+Accessing those fields means those offsets are present in the assembly instructions as it adds them to registers, and these types of code snippets are very frequently used in the malware development space.
 
 ## Locating the problematic code
 
-Let's fire up IDA and check what's going on at that `0x140001070` function that CAPA flags. I've compiled with debugging info present to make it more obvious and we can see immediately that the rules fires on snippets present in `CustomGetProcAddrByHash()`, which is full of those suspicious `0x3c`, `0x88`, `0x24` as the function parses the export table:
+Let's fire up IDA and check what's going on at with this `0x140001070` function that CAPA flags. I've compiled with debugging info present to make it more obvious and we can see immediately that the rules fires on snippets present in `CustomGetProcAddrByHash()`, which is full of those suspicious `0x3c`, `0x88`, `0x24` offsets as the function parses the Export Directory:
 
 ![](https://rwxstoned.github.io/assets/img/1/Pasted image 20241010144322.png)
 
@@ -49,9 +54,11 @@ Additionally, CAPA also has a rule to detect the assembly code which locates the
 
 ## Implementing a bypass
 
-Here, I have created a separate `GenOffset()` function to return the offset values dynamically at run time in order to have static hard-coded values as seen above. The original implementation is commented out, the new one using that function is visible just below:
+Here, I have created a separate `GenOffset()` function to return the offset values dynamically at run time in order to have static hard-coded values as seen above. The original implementation is commented out, the new one using that function is visible just below. Instead of directly adding the `e_lfanew` offset, we have that offset produced at runtime by our new function:
 
 ![](https://rwxstoned.github.io/assets/img/1/Pasted image 20241017223342.png)
+
+Do note, though, that the optimizer might still be able to see through this and optimize your code in such a way that it ultimately replaces the function call with the raw offset. You will need to either disable optimization or make your extra-function dynamic enough that it cannot be replaced by a hard-coded value (the preferred option of course...).
 
 What it does is not important and you would have to implement it yourself as copying it from somewhere else would defeat the whole purpose that we are discussing here. 
 
@@ -59,7 +66,9 @@ Removing the `.pdb` file generation and rechecking with CAPA, we now find that o
 
 ![](https://rwxstoned.github.io/assets/img/1/Pasted image 20241017222531.png)
 
-The `parse PE header` seems to be a false-positive which applies to pretty much any executable and can be ignored.
+The `parse PE header` indicator seems to be a false-positive which applies to pretty much any executable and can be ignored. 
+
+I also mentionned at the beginning, that the use of `xor` operation has been detected... you know what to do !
 
 ## Summary
 
