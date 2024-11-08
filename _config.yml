@@ -75,6 +75,9 @@ social-network-links:
 #  itchio: yourname
 #  untappd: yourname
 
+# Analystics
+
+gtag: "G-TJ2K2K6JE1"
 
 ###########################
 # --- General options --- #
