@@ -39,7 +39,7 @@ However, I find it more convenient to compile my BOF as an object-file in `Relea
 
 ![](https://rwxstoned.github.io/assets/img/3/debugger.png)
 
-An important thing to be aware of is that this BOF is allocated separately from beacon. Within Cobalt Strike 4.10, following the examples provided in the UDRL-VS (provided with the Community Kit), this memory is allocated via `BudLoaderAllocateBuffer()`, specifying a purpose being `PURPOSE_SLEEP_MASK_MEMORY`. You are free to allocate that memory the way you want, but bear in mind that if you keep the default, it will run from within a private RX memory ! While BeaconGate gives you the means to achieve better opsec, it can also easily achieve the opposite results and get your API calls originate from a memory location which is *more* suspicious than the initial beacon memory space !
+An important thing to be aware of is that this BOF is allocated separately from beacon. Within Cobalt Strike 4.10, following the examples given in the UDRL-VS (provided with the Community Kit), this memory is allocated via `BudLoaderAllocateBuffer()`, specifying a purpose being `PURPOSE_SLEEP_MASK_MEMORY`. You are free to allocate that memory the way you want, but bear in mind that if you keep the default, it will run from within a private RX memory ! *BeaconGate is a double-edge sword*. While it gives you the means to achieve better opsec, it can also backfire and achieve the opposite results by making your API calls to originate from a memory location which is *more* suspicious than the initial beacon memory space !
 
 _Note: Unlike the BOF examples above, this is part of Cobalt Strike so the code cannot be shared and the snippets will be minimalistic._
 
@@ -63,7 +63,7 @@ In the Sleepmask-VS template, you modify the sleeping function here:
 
 ![](https://rwxstoned.github.io/assets/img/3/sleep.png)
 
-`MySleep()` implementation relies on `GetQueuedCompletionStatus()` to implement a wait (which we know will timeout after a delay of our chosing) on an IO object:
+`MySleep()` implementation relies on `GetQueuedCompletionStatus()` to implement a wait (which we know will timeout after a delay of our chosing) on an IO object. More details on this API [here](https://learn.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus) but what really matters is the fact that it can timeout, which is all that matters in that specific scenario:
 
 ![](https://rwxstoned.github.io/assets/img/3/mysleep.png)
 
