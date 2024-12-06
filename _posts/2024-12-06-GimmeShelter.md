@@ -4,7 +4,7 @@ subtitle: a situational awareness Python script to help you find where to put yo
 thumbnail-img: "https://rwxstoned.github.io/assets/img/4/gimme-shelter.png"
 ---
 
-[GimmeShelter](https://github.com/RWXstoned/GimmeShelter) is a lightweight Python script which will help you get a good view of what a Windows environment looks like, and highlight opportunities for hiding/running malware from unusual modules, or memory setups. 
+[GimmeShelter.py](https://github.com/RWXstoned/GimmeShelter) is a lightweight Python script which will help you get a good view of what a Windows environment looks like, and highlight opportunities for hiding/running malware from unusual modules, or memory setups. 
 
 ![](https://rwxstoned.github.io/assets/img/4/gimme-shelter.png)
 
@@ -12,7 +12,7 @@ thumbnail-img: "https://rwxstoned.github.io/assets/img/4/gimme-shelter.png"
 
 Once on a host, a key thing in any red team operation is to become aware of what the "normal" activity on that environment looks like, ideally, very quickly. There is no rocket science here, we are talking about basic things such as the usual browser, which desktop apps connect to the internet, do any of the common apps have weird memory patterns with RWX sections, or odd DLL modules loaded from custom locations ?
 
-Armed with that knowledge it becomes easier to blend in, once you know where to plant a persistency mechanism, or how to execute code, with an much better opsec than randomly running payloads.
+Armed with that knowledge it becomes easier to blend in, once you know where to plant a persistency mechanism, or how to execute code, with an much better opsec than if randomly running payloads irrespective of the particularities of the environment.
 
 This is exactly what this script does. It is in Python, which is ubiquitous and rarely suspicious. It is not too intrusive, merely looking around at processes. Do note, though, that it does perform a few API calls (using `ctypes`) to check memory pages settings in order to find RWX ones.
 
@@ -20,7 +20,7 @@ This is NOT a privesc tool, so it is not checking for processes running as `SYST
 
 ## What it is looking for
 
-`GimmeShelter` will highlight the following potentially interesting properties for the processes currently running under the current user's context:
+`GimmeShelter.py` will highlight the following potentially interesting properties for the processes currently running under the current user's context:
 
 - is the process a dotNET process ? These are known to have more anomalous memory setups than other processes. By default, these are not displayed.
 - does the process have "odd" modules loaded, from unusual directories ? This may open up DLL hijacking/sideloading possibilities.
