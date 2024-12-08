@@ -14,7 +14,7 @@ Once on a host, a key thing in any red team operation is to become aware of what
 
 Armed with that knowledge it becomes easier to blend in, once you know where to plant a persistency mechanism, or how to execute code, with an much better opsec than if randomly running payloads irrespective of the particularities of the environment.
 
-This is exactly what this script does. It is in Python, which is ubiquitous and rarely suspicious. It is not too intrusive, merely looking around at processes. Do note, though, that it does perform a few API calls (using `ctypes`) to check memory pages settings in order to find RWX ones.
+This is exactly what this script does. It is in Python, which is ~~ubiquitous~~ fairly common and rarely suspicious. It is not too intrusive, merely looking around at processes. Do note, though, that it does perform a few API calls (using `ctypes`) to check memory pages settings in order to find RWX ones.
 
 This is NOT a privesc tool, so it is not checking for processes running as `SYSTEM`, or for read/write permissions on DLLs (this would mean being much noisier). It is also NOT a memory scanner like [Moneta](https://github.com/forrest-orr/moneta). Should you wish to investigate a specific process or module further, you are encouraged to do so in a lab environment. The SHA256 are displayed so that you can ensure you get the same exact version of the executables or modules that you have identified as being of interest.
 
