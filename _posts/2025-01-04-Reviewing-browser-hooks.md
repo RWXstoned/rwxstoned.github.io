@@ -4,7 +4,7 @@ subtitle: reviewing an EDR-like mechanism implemented by a popular browser
 thumbnail-img: "https://rwxstoned.github.io/assets/img/5/mj.png"
 ---
 
-While testing payloads, I stumbled across a security feature implemented within a popular browser, which acts like an EDR. By hooking a key Windows API, it checks thread creation at runtime and then decide whether this should run or not.
+While testing payloads, I stumbled across a security feature implemented within a popular browser, which acts like an EDR. By hooking a key Windows API, it checks thread creation at runtime and then decides whether this should run or not.
 
 ![](https://rwxstoned.github.io/assets/img/5/mj.png)
 
@@ -24,7 +24,7 @@ To that effect, I have been writing a simple shellcode in an `RWX` memory range,
 
 It became evident that even when trying to execute the shellcode in a very trivial way (with `CreateRemoteThread()`), it still failed silently, with the thread being created but the shellcode never executed.
 
-I initially thought this was caused by a technicallity in the target process (browsers can implement funky things, modify native DLLs, etc...) but realized this actually looked like an intentional security feature, very much similar to what an EDR would do.
+I initially thought this was caused by a technicality in the target process (browsers can implement funky things, modify native DLLs, etc...) but realized this actually looked like an intentional security feature, very much similar to what an EDR would do.
 
 ## Hooking thread creation
 
