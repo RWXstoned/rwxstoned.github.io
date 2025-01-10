@@ -8,6 +8,10 @@ While testing payloads, I stumbled across a security feature implemented within 
 
 ![](https://rwxstoned.github.io/assets/img/5/mj.png)
 
+*EDIT 10th Jan. 2025*
+
+*Aaron Klotz (@dblohm7) [reached out to me](https://twitter.com/dblohm7/status/1877062920665804925) to explain that he worked on this in an effort to prevent third-party software from messing with Firefox (which they did, mostly via wild DLL injections or patching). His [blog article at the time](https://dblohm7.ca/blog/2019/01/18/2018-roundup-q1/) goes into more details.*
+
 ## Failing to run RWX shellcode in a common browser
 
 I have been testing a new type of process injection technique. It will probably be published on this blog in the near-future but the purpose here is not that injection technique in particular, but how I randomly came across a mechanism within a browser which acts like an EDR.
