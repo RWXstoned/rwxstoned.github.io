@@ -4,9 +4,9 @@ subtitle: reviewing an EDR-like mechanism implemented by a popular browser
 thumbnail-img: "https://rwxstoned.github.io/assets/img/5/mj.png"
 ---
 
-*EDIT 10th Jan. 2025*
+*EDIT January 10, 2025*
 
-[ *Aaron Klotz (@dblohm7), who worked at Mozilla, [reached out to me](https://twitter.com/dblohm7/status/1877062920665804925) to explain that he worked on this in an effort to prevent third-party software from messing with Firefox (which they did, mostly via wild DLL injections or patching). His [blog article at the time](https://dblohm7.ca/blog/2019/01/18/2018-roundup-q1/) goes into more details.* ]
+[ *Aaron Klotz (@dblohm7), an ex-Mozilla developer, [reached out to me](https://twitter.com/dblohm7/status/1877062920665804925) to explain that he worked on this in an effort to prevent third-party software from messing with Firefox (which was often the case, mostly via wild DLL injections or patching). His [blog article at the time](https://dblohm7.ca/blog/2019/01/18/2018-roundup-q1/) goes into more details.* ]
 
 ---
 
