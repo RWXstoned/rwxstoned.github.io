@@ -4,13 +4,17 @@ subtitle: reviewing an EDR-like mechanism implemented by a popular browser
 thumbnail-img: "https://rwxstoned.github.io/assets/img/5/mj.png"
 ---
 
+*EDIT 10th Jan. 2025*
+
+[ *Aaron Klotz (@dblohm7), who worked at Mozilla, [reached out to me](https://twitter.com/dblohm7/status/1877062920665804925) to explain that he worked on this in an effort to prevent third-party software from messing with Firefox (which they did, mostly via wild DLL injections or patching). His [blog article at the time](https://dblohm7.ca/blog/2019/01/18/2018-roundup-q1/) goes into more details.* ]
+
+---
+
 While testing payloads, I stumbled across a security feature implemented within a popular browser, which acts like an EDR. By hooking a key Windows API, it checks thread creation at runtime and then decides whether this should run or not.
 
 ![](https://rwxstoned.github.io/assets/img/5/mj.png)
 
-*EDIT 10th Jan. 2025*
 
-*Aaron Klotz (@dblohm7) [reached out to me](https://twitter.com/dblohm7/status/1877062920665804925) to explain that he worked on this in an effort to prevent third-party software from messing with Firefox (which they did, mostly via wild DLL injections or patching). His [blog article at the time](https://dblohm7.ca/blog/2019/01/18/2018-roundup-q1/) goes into more details.*
 
 ## Failing to run RWX shellcode in a common browser
 
