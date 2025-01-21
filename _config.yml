@@ -52,7 +52,7 @@ social-network-links:
   twitter: rwxstoned
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
-#  linkedin: daattali
+  linkedin: h-valette
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
@@ -87,7 +87,7 @@ gtag: "G-TJ2K2K6JE1"
 share-links-active:
   twitter: true
   facebook: false
-  linkedin: false
+  linkedin: true
   vk: false
 
 
