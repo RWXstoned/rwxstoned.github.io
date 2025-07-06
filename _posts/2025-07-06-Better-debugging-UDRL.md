@@ -148,7 +148,7 @@ void dlog(const char* format, ...) €
 
 You can now run your UDRL in its final form and observe it through WinDbg. This is what it looks like when printing out 3 statements such as below when looking at Notepad, where that UDRL has been injected:
 
-`DLOGF("Test DLOGF: 0x%p\n", anInterestingAddress);`.
+`DLOGF("Test DLOGF: 0x%p\n", anInterestingAddress);`
 
 ![](https://rwxstoned.github.io/assets/img/6/debugstrings.png)
 
