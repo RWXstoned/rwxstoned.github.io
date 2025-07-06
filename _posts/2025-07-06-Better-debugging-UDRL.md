@@ -115,7 +115,7 @@ void dlog(const char* format, ...);
 #ifdef ENABLE_DEBUGSTRING
 #include "FunctionResolving.h"
 
-void dlog(const char* format, ...) €
+void dlog(const char* format, ...) {
 	va_list arglist;
 	va_start(arglist, format);
 	char buff[1024];
@@ -137,10 +137,11 @@ void dlog(const char* format, ...) €
 	OUTPUTDEBUGSTRINGA fnOutputDebugStringA = (OUTPUTDEBUGSTRINGA) GetProcAddressByHash(pebAddress, KERNEL32_HASH, OutputDebugStringA_hash);
 	
 	int len = fnVsprintf_s(buff, 1024, format, arglist);
-	if (len > 0) €
+	if (len > 0) {
 		fnOutputDebugStringA(buff);
+	}
 	va_end (arglist);
-
+}
 #endif ENABLE_DEBUGSTRING
 ```
 
