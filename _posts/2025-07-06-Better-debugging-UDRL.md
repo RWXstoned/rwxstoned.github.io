@@ -85,7 +85,7 @@ DLOG(mystring123);
 
 The UDRL-VS is not open-source so I cannot directly share my version of the code but these are the snippets I amended.
 
-I added the above macros in `Utils.h` to define `DLOG`:
+I added the above macros in `Utils.h` to define our own `DLOGF`, which will expand to something that takes care of the `PIC_STRING` before calling `DLOG`:
 
 ```
 #ifdef ENABLE_DEBUGSTRING
@@ -146,7 +146,9 @@ void dlog(const char* format, ...) €
 
 ## Conclusion
 
-You can now run your UDRL in its final form and observe it through WinDbg. This is what it looks like when printing out 3 statements from my loader, such as `DLOGF("Test DLOGF: 0x%p\n", anInterestingAddress);`.
+You can now run your UDRL in its final form and observe it through WinDbg. This is what it looks like when printing out 3 statements such as below when looking at Notepad, where that UDRL has been injected:
+
+`DLOGF("Test DLOGF: 0x%p\n", anInterestingAddress);`.
 
 ![](https://rwxstoned.github.io/assets/img/6/debugstrings.png)
 
