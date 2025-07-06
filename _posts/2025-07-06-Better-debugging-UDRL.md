@@ -1,10 +1,10 @@
 ---
-title: Making the Debugging of UDRL Easier
+title: Making the Debugging of UDRLs (a bit) Easier
 subtitle: a simple addition to the UDRL-VS framework to enable the logging of debug strings in your loader at runtime 
 thumbnail-img: "https://rwxstoned.github.io/assets/img/6/kr-pints.jpg"
 ---
 
-The introduction of [this Visual Studio project](https://www.cobaltstrike.com/blog/revisiting-the-udrl-part-1-simplifying-development) as a template for building Cobalt Strike UDRL has come with a lot of little gimmicks aimed at making your life as a malware developer a bit easier. Developing Position Independant Code (PIC) is indeed extremely annoying and comes with a lot of constraints. To name one, the inability to define strings in a classic way. This project has made use of clever preprocessor macros to abstract away some of that pain, for instance with `PIC_STRING()` to define strings. Other useful features are `PRINT()`, the presence of a `Debug` build, etc. Please read the blog post above for more on this.
+The introduction of [this Visual Studio project](https://www.cobaltstrike.com/blog/revisiting-the-udrl-part-1-simplifying-development) as a template for building Cobalt Strike UDRL has come with a lot of little gimmicks aimed at making your life a bit easier as a malware developer. Developing Position Independant Code (PIC) is indeed extremely annoying and comes with a lot of constraints. To name one, the inability to define strings in a classic way. This project has made use of clever preprocessor macros to abstract away some of that pain, for instance with `PIC_STRING()` to define strings. Other useful features are `PRINT()`, the presence of a `Debug` build, etc. Please read the blog post above for more on this.
 
 In my experience though, debugging your UDRL is still painful. Fundamentally, a piece of PIC code is NOT an executable. While the `Debug` build provided in the UDRL-VS Template is useful in certain scenarios, the .exe that it produces is not _exactly_ the UDRL that you will get in `Release` mode, and I found it more useful to debug the `Release` PIC blob in WinDbg rather than debugging the `Debug` executable produced.
 
@@ -25,7 +25,9 @@ What you get is a `DLOGF()` macro as a wrapper around that API, which handles th
 
 The UDRL-VS template does not define any such helper. Unfortunately, the `DLOGF` example is not directly usable because your UDRL cannot use traditional strings like this:
 
-`DLOG("I reached here \n");`
+```
+DLOG("I reached here \n");
+```
 
 Instead you must use something like this, in order to have everything on the `.text` section through the use of the nice `PIC_STRING` helper I mentionned above:
 
@@ -38,7 +40,9 @@ This is mildly annoying if we are going to have to type two lines for every prin
 
 You cannot wrap those two statements in a one-liner macro like this:
 
-`#define DLOGF(format, ...) PIC_STRING(mystring, format); DLOG(mystring)`
+```
+#define DLOGF(format, ...) PIC_STRING(mystring, format); DLOG(mystring)`
+```
 
 as this would end up redifining `mystring` on every invocation.
 
@@ -56,10 +60,19 @@ The following snippet shows how to define such a variable:
 
 Now `VARLINE(myvar)` will expand to `varline123` or `varline1337` or any unique name containing the line number. The second line may seem redundant but I found this was necessary to ensure that all macros were correctly expanded in the right order to end up with the intended result.
 
+This may make things a bit clearer:
+
+![](https://rwxstoned.github.io/assets/img/6/macrovar.png)
+
 With the ability to create unique variable names in a macro, we can define a `DLOGF()` macro which will automatically unpack into something like what we desired above.
 
-`#define DLOGF(format, ...) PIC_STRING(); DLOG()`
-`DLOGF("I reached here \n");`
+```
+#define DLOGF(format, ...) PIC_STRING(); DLOG()
+```
+
+```
+LOGF("I reached here \n");
+```
 
 will now indeed expand into those two lines:
 
@@ -135,6 +148,6 @@ void dlog(const char* format, ...) €
 
 You can now run your UDRL in its final form and observe it through WinDbg. This is what it looks like when printing out 3 statements from my loader, such as `DLOGF("Test DLOGF: 0x%p\n", anInterestingAddress);`.
 
-![](https://rwxstoned.github.io/assets/img/6/debugstrings.jpg)
+![](https://rwxstoned.github.io/assets/img/6/debugstrings.png)
 
 I find this option more comfortable than juggling with a `Debug` and a `Release` build and trying to then figure out why something that worked in one, does not anymore in the other !
