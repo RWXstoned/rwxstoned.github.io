@@ -14,6 +14,6 @@ I work as a Red Teamer in the UK. The code, snippets, or any types of documents 
 
 Here are some talks I have given:
 
-- x33fcon 2025: Taming the Windows Loader for Stealthy Injection.
-- Beacon 25: A User-Friendly Introduction to Cobalt Strike's UDRL.
+- x33fcon 2025: <i>Taming the Windows Loader for Stealthy Injection.</i>
+- Beacon 25: <i>A User-Friendly Introduction to Cobalt Strike's UDRL.</i>
 
